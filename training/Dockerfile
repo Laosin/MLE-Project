@@ -6,13 +6,13 @@ FROM python:3.10
 WORKDIR /app
 
 # Copy the dependencies file to the working directory
-COPY requirements/requirements_train.txt .
+COPY requirements_train.txt .
 
 # Install any dependencies
 RUN pip install --no-cache-dir -r requirements_train.txt
 
 # Copy the content of the local src directory to the working directory
-COPY src/ .
+COPY train_script.py .
 
 # Command to run the training script
 CMD ["python", "train_script.py"]
