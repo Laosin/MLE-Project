@@ -2,26 +2,17 @@
 # Start from a base Python image
 FROM python:3.10
 
-# Initialize settings_name variable with the default value
-ARG settings_name=settings.json
-ENV CONF_PATH=${settings_name}
-
-# Changing the path to the working directory in the container
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy data folder to Docker
-COPY data/ /app/data
+# Copy the dependencies file to the working directory
+COPY requirements/requirements_train.txt .
 
-# Copy the code itself
-COPY training /app/training
+# Install any dependencies
+RUN pip install --no-cache-dir -r requirements_train.txt
 
-# Copy utils.py
-COPY utils.py /app
-COPY ${CONF_PATH} /app
+# Copy the content of the local src directory to the working directory
+COPY src/ .
 
-# Install any necessary packages listed in requirements.txt
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Train the model
-RUN python3 training/train.py
+# Command to run the training script
+CMD ["python", "train_script.py"]
