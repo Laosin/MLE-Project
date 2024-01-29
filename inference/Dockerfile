@@ -2,28 +2,17 @@
 # Start from a base Python image
 FROM python:3.10
 
-ARG model_name=prod_model.pickle
-ARG settings_name=settings.json
-ENV CONF_PATH=${settings_name}
-
+# Set the working directory in the container to /app
 WORKDIR /app
 
-# Copy data folder to Docker
-COPY data/ /app/data
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-# Copy models folder to Docker
-COPY models/${model_name} /app/models/${model_name}.pickle
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements/requirements_infer.txt
 
-# Copy the code itself
-COPY inference /app/inference
+# Define environment variable (if needed)
+# ENV NAME Value
 
-# Copy usefull scripts and configs
-COPY utils.py /app
-COPY ${CONF_PATH} /app
-
-# Install any necessary packages listed in requirements.txt
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Train the model
-RUN python3 inference/run.py
+# Run infer_script.py when the container launches
+CMD ["python", "infer_script.py"]
