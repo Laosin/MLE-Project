@@ -9,7 +9,7 @@ WORKDIR /app
 COPY . /app
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements/requirements_infer.txt
+RUN pip install --no-cache-dir -r requirements_infer.txt
 
 # Define environment variable (if needed)
 # ENV NAME Value
