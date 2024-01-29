@@ -14,17 +14,16 @@ project_repository/
 │
 ├── training/
 │   ├── Dockerfile         # Dockerfile for training environment
-│   └── train_script.py    # Python script for training the model
+│   ├── train_script.py    # Python script for training the model
+│   └── requirements_train.txt  # Dependencies for training
 │
 ├── inference/
 │   ├── Dockerfile         # Dockerfile for inference environment
-│   └── infer_script.py    # Python script for model inference
-│
-├── requirements/
-│   ├── requirements_train.txt  # Dependencies for training
+│   ├── infer_script.py    # Python script for model inference
 │   └── requirements_infer.txt  # Dependencies for inference
 │
-├── .gitignore             # Gitignore file
+├── unittests/
+│   └── unittests.py
 │
 └── README.md              # README file
 ```
